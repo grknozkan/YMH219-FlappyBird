@@ -102,9 +102,11 @@ Veya `FlappyBird.csproj` dosyasını Visual Studio 2022'de açıp **F5** ile ba�
 
 ## 📸 Ekran Görüntüleri
 
+> *Proje çalıştırıldıktan sonra ekran görüntüleri buraya eklenecektir.*
+
 | Başlangıç Ekranı | Oyun İçi | Game Over |
 |------------------|----------|-----------|
-| ![Başlangıç](https://github.com/user-attachments/assets/ccda05c0-536a-48af-9fb3-52c9b4ee2406) | ![Oyun](https://github.com/user-attachments/assets/267c0209-9dd9-4738-90f6-f08295152e01) | ![GameOver](https://github.com/user-attachments/assets/3d89f83e-ce70-4c88-8860-7482823dc2c6) |
+| <img width="480" height="682" alt="image" src="https://github.com/user-attachments/assets/ccda05c0-536a-48af-9fb3-52c9b4ee2406" />|| <img width="478" height="665" alt="image" src="https://github.com/user-attachments/assets/267c0209-9dd9-4738-90f6-f08295152e01" />|| <img width="479" height="668" alt="image" src="https://github.com/user-attachments/assets/3d89f83e-ce70-4c88-8860-7482823dc2c6" />|
 
 ---
 
@@ -121,7 +123,6 @@ Veya `FlappyBird.csproj` dosyasını Visual Studio 2022'de açıp **F5** ile ba�
 | Alan | Bilgi |
 |------|-------|
 | **Ad Soyad** | Gürkan Özkan |
-| **Öğrenci No** | *(öğrenci numaranızı buraya yazın)* |
+| **Öğrenci No** | 250542023 |
 | **Ders** | Nesne Tabanlı Programlama — YMH 219 |
 | **Teslim Tarihi** | 30 Kasım 2026 |
-
