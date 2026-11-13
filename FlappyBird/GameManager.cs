@@ -2,47 +2,35 @@ using System.Drawing.Drawing2D;
 
 namespace FlappyBird;
 
-/// <summary>
-/// Oyun durumunu temsil eden enum.
-/// </summary>
 public enum GameState
 {
-    WaitingToStart,  // Başlamayı bekliyor (ilk ekran)
-    Playing,         // Oyun aktif
-    GameOver         // Oyun bitti
+    WaitingToStart,
+    Playing,
+    GameOver
 }
 
-/// <summary>
-/// Oyunun tüm mantığını ve durumunu yöneten sınıf.
-/// Kuş, borular, skor ve durum bilgilerini içerir.
-/// </summary>
+// Oyunun ana mantığını yöneten sınıf
 public class GameManager
 {
-    // --- Oyun alanı boyutları ---
     public int ScreenWidth { get; }
     public int ScreenHeight { get; }
     private const int GroundHeight = 60;
 
-    // --- Oyun nesneleri ---
     public Bird Bird { get; private set; }
     public List<Pipe> Pipes { get; private set; } = [];
 
-    // --- Durum ve skor ---
     public GameState State { get; private set; } = GameState.WaitingToStart;
     public int Score { get; private set; }
     public int HighScore { get; private set; }
 
-    // --- Hız yönetimi ---
     public float PipeSpeed { get; private set; }
     private const float BaseSpeed = 3.5f;
     private const float SpeedIncrement = 0.3f;
-    private const int SpeedUpEvery = 5; // Her 5 skorda hızlan
+    private const int SpeedUpEvery = 5;
 
-    // --- Boru aralığı ---
     private const int PipeSpacing = 240;
     private const int PipeCount = 3;
 
-    // --- Bulutlar (dekoratif) ---
     private readonly List<(float X, float Y, float Speed, int W, int H)> _clouds = [];
 
     public GameManager(int screenWidth, int screenHeight)
@@ -80,7 +68,6 @@ public class GameManager
         }
     }
 
-    /// <summary>Oyunu (yeniden) başlatır.</summary>
     public void StartGame()
     {
         Score = 0;
@@ -91,7 +78,6 @@ public class GameManager
         Bird.Flap();
     }
 
-    /// <summary>Kuşu zıplatır (Space / MouseClick).</summary>
     public void Flap()
     {
         if (State == GameState.Playing)
@@ -100,12 +86,10 @@ public class GameManager
             StartGame();
     }
 
-    /// <summary>Her timer tick'inde çağrılır.</summary>
     public void Update()
     {
         if (State != GameState.Playing) return;
 
-        // Kuş fiziği
         Bird.Update();
 
         // Bulutları kaydır
@@ -118,27 +102,23 @@ public class GameManager
             _clouds[i] = c;
         }
 
-        // Boru güncelleme
         foreach (var pipe in Pipes)
         {
             pipe.Update(PipeSpeed);
 
-            // Skor: kuş boruyu geçti mi?
+            // Boru geçildi mi?
             if (!pipe.Passed && pipe.X + Pipe.PipeWidth < Bird.X)
             {
                 pipe.Passed = true;
                 Score++;
-                // High score güncelle
                 if (Score > HighScore) HighScore = Score;
-                // Her N skorda hızlan
                 if (Score % SpeedUpEvery == 0)
                     PipeSpeed += SpeedIncrement;
             }
 
-            // Boru ekran dışına çıktıysa yeniden konumlandır
+            // Ekran dışına çıktıysa yeniden konumlandır
             if (pipe.X + Pipe.PipeWidth < 0)
             {
-                // En sağdaki borunun X'ini bul
                 float maxX = Pipes.Max(p => p.X);
                 pipe.Reposition(maxX + PipeSpacing, ScreenHeight - GroundHeight);
             }
@@ -152,14 +132,12 @@ public class GameManager
         Rectangle birdBounds = Bird.Bounds;
         int groundY = ScreenHeight - GroundHeight;
 
-        // Zemine veya tavan çarpması
         if (Bird.Y + Bird.Height >= groundY || Bird.Y < 0)
         {
             TriggerGameOver();
             return;
         }
 
-        // Boru çarpışması
         foreach (var pipe in Pipes)
         {
             if (birdBounds.IntersectsWith(pipe.TopBounds) ||
@@ -177,7 +155,6 @@ public class GameManager
         if (Score > HighScore) HighScore = Score;
     }
 
-    /// <summary>Tüm sahneyi çizer.</summary>
     public void Draw(Graphics g)
     {
         DrawBackground(g);
@@ -195,8 +172,6 @@ public class GameManager
         else if (State == GameState.GameOver)
             DrawGameOverScreen(g);
     }
-
-    // ── Çizim yardımcıları ────────────────────────────────────────────────────
 
     private void DrawBackground(Graphics g)
     {
@@ -232,7 +207,6 @@ public class GameManager
 
     private void DrawHUD(Graphics g)
     {
-        // Skor (ortada üstte)
         using var scoreFont = new Font("Segoe UI", 28, FontStyle.Bold);
         string scoreText = Score.ToString();
         SizeF sz = g.MeasureString(scoreText, scoreFont);
@@ -242,16 +216,13 @@ public class GameManager
         g.DrawString(scoreText, scoreFont, shadow, sx + 2, 22);
         g.DrawString(scoreText, scoreFont, Brushes.White, sx, 20);
 
-        // High score (sağ üstte)
         using var hsFont = new Font("Segoe UI", 13, FontStyle.Bold);
         string hsText = $"En İyi: {HighScore}";
         g.DrawString(hsText, hsFont, shadow, ScreenWidth - 118, 22);
         g.DrawString(hsText, hsFont, Brushes.White, ScreenWidth - 120, 20);
 
-        // Hız göstergesi
         using var speedFont = new Font("Segoe UI", 10);
-        string speedText = $"Hız: {PipeSpeed:F1}";
-        g.DrawString(speedText, speedFont, Brushes.White, 10, 10);
+        g.DrawString($"Hız: {PipeSpeed:F1}", speedFont, Brushes.White, 10, 10);
     }
 
     private void DrawStartScreen(Graphics g)
