@@ -36,9 +36,9 @@ FlappyBird/
 ```
 
 ### Temel OOP Kavramları
-- **Kapsülleme**: Her sınıf kendi durumunu `private` alanlarla saklar.  
-- **Sorumluluk ayrımı**: Fizik → `Bird`, Engel mantığı → `Pipe`, Oyun koordinasyonu → `GameManager`, UI → `GameForm`.  
-- **Enum kullanımı**: `GameState` (WaitingToStart / Playing / GameOver).  
+- **Kapsülleme**: Her sınıf kendi durumunu `private` alanlarla saklar.
+- **Sorumluluk ayrımı**: Fizik → `Bird`, Engel mantığı → `Pipe`, Oyun koordinasyonu → `GameManager`, UI → `GameForm`.
+- **Enum kullanımı**: `GameState` (WaitingToStart / Playing / GameOver).
 - **Olay yönetimi**: `KeyDown`, `MouseClick`, `Timer.Tick`.
 
 ---
@@ -94,26 +94,24 @@ Veya `FlappyBird.csproj` dosyasını Visual Studio 2022'de açıp **F5** ile ba�
 | `Space` | Zıpla / Oyunu başlat / Yeniden başlat |
 | Fare tıklaması | Zıpla / Oyunu başlat / Yeniden başlat |
 
-- Kuş borular arasından geçtikçe skor artar.  
-- Her **5 puanda** boru hızı artar.  
+- Kuş borular arasından geçtikçe skor artar.
+- Her **5 puanda** boru hızı artar.
 - Zemine veya boru çarparsa **Game Over** ekranı açılır.
 
 ---
 
 ## 📸 Ekran Görüntüleri
 
-> *Proje çalıştırıldıktan sonra ekran görüntüleri buraya eklenecektir.*
-
 | Başlangıç Ekranı | Oyun İçi | Game Over |
-|------------------|----------|-----------|
-| <img width="480" height="682" alt="image" src="https://github.com/user-attachments/assets/ccda05c0-536a-48af-9fb3-52c9b4ee2406" />|| <img width="478" height="665" alt="image" src="https://github.com/user-attachments/assets/267c0209-9dd9-4738-90f6-f08295152e01" />|| <img width="479" height="668" alt="image" src="https://github.com/user-attachments/assets/3d89f83e-ce70-4c88-8860-7482823dc2c6" />|
+|:----------------:|:--------:|:---------:|
+| ![Başlangıç Ekranı](https://github.com/user-attachments/assets/ccda05c0-536a-48af-9fb3-52c9b4ee2406) | ![Oyun İçi](https://github.com/user-attachments/assets/267c0209-9dd9-4738-90f6-f08295152e01) | ![Game Over](https://github.com/user-attachments/assets/3d89f83e-ce70-4c88-8860-7482823dc2c6) |
 
 ---
 
 ## ⚠️ Bilinen Sınırlamalar / Geliştirme Notları
 
-- Ses efekti henüz eklenmemiştir (isteğe bağlı geliştirme olarak planlanmıştır).  
-- High score yalnızca oturum süresince tutulur; dosyaya kaydetme eklenmemiştir.  
+- Ses efekti henüz eklenmemiştir (isteğe bağlı geliştirme olarak planlanmıştır).
+- High score yalnızca oturum süresince tutulur; dosyaya kaydetme eklenmemiştir.
 - Oyun yalnızca Windows platformunda çalışır (Windows Forms bağımlılığı).
 
 ---
