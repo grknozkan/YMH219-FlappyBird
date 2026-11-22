@@ -80,4 +80,4 @@ Ya da `.csproj` dosyasını Visual Studio'da açıp F5.
 - **Ad Soyad:** Gürkan Özkan
 - **Öğrenci No:** 250542023
 - **Ders:** Nesne Tabanlı Programlama — YMH 219
-- **Teslim:** 30 Kasım 2026
+- **Son Teslim Tarihi:** 30 Kasım 2026
