@@ -23,6 +23,8 @@ public class GameManager
     public int Score { get; private set; }
     public int HighScore { get; private set; }
 
+    private static readonly string HighScoreFile = "highscore.txt";
+
     public float PipeSpeed { get; private set; }
     private const float BaseSpeed = 3.5f;
     private const float SpeedIncrement = 0.3f;
@@ -40,6 +42,7 @@ public class GameManager
         Bird = new Bird(screenWidth * 0.25f, screenHeight / 2f);
         InitializePipes();
         InitializeClouds();
+        LoadHighScore();
     }
 
     private void InitializePipes()
@@ -152,7 +155,27 @@ public class GameManager
     private void TriggerGameOver()
     {
         State = GameState.GameOver;
-        if (Score > HighScore) HighScore = Score;
+        if (Score > HighScore)
+        {
+            HighScore = Score;
+            SaveHighScore();
+        }
+    }
+
+    private void LoadHighScore()
+    {
+        try
+        {
+            if (File.Exists(HighScoreFile))
+                HighScore = int.Parse(File.ReadAllText(HighScoreFile).Trim());
+        }
+        catch { HighScore = 0; }
+    }
+
+    private void SaveHighScore()
+    {
+        try { File.WriteAllText(HighScoreFile, HighScore.ToString()); }
+        catch { }
     }
 
     public void Draw(Graphics g)
