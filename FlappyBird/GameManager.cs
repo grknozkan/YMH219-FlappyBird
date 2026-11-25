@@ -27,7 +27,6 @@ public class GameManager
     private static readonly string HighScoreFile = "highscore.txt";
 
     public float PipeSpeed { get; private set; }
-    private const float BaseSpeed = 3.5f;
     private const float SpeedIncrement = 0.3f;
     private const int SpeedUpEvery = 5;
 
