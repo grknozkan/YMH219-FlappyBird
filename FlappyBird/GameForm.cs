@@ -56,6 +56,14 @@ public partial class GameForm : Form
     {
         if (e.KeyCode == Keys.Space)
             _game.Flap();
+
+        // Başlangıç ekranında zorluk seçimi
+        if (_game.State == GameState.WaitingToStart || _game.State == GameState.GameOver)
+        {
+            if (e.KeyCode == Keys.D1) _game.SetDifficulty(DifficultyLevel.Easy);
+            if (e.KeyCode == Keys.D2) _game.SetDifficulty(DifficultyLevel.Normal);
+            if (e.KeyCode == Keys.D3) _game.SetDifficulty(DifficultyLevel.Hard);
+        }
     }
 
     private void OnMouseClick(object? sender, MouseEventArgs e)

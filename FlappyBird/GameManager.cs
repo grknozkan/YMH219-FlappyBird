@@ -22,6 +22,7 @@ public class GameManager
     public GameState State { get; private set; } = GameState.WaitingToStart;
     public int Score { get; private set; }
     public int HighScore { get; private set; }
+    public DifficultyLevel CurrentDifficulty { get; private set; } = DifficultyLevel.Normal;
 
     private static readonly string HighScoreFile = "highscore.txt";
 
@@ -74,11 +75,16 @@ public class GameManager
     public void StartGame()
     {
         Score = 0;
-        PipeSpeed = BaseSpeed;
+        PipeSpeed = Difficulty.GetBaseSpeed(CurrentDifficulty);
         State = GameState.Playing;
         Bird.Reset(ScreenWidth * 0.25f, ScreenHeight / 2f);
         InitializePipes();
         Bird.Flap();
+    }
+
+    public void SetDifficulty(DifficultyLevel level)
+    {
+        CurrentDifficulty = level;
     }
 
     public void Flap()
@@ -253,16 +259,20 @@ public class GameManager
         DrawOverlay(g);
         using var titleFont = new Font("Segoe UI", 36, FontStyle.Bold);
         using var subFont = new Font("Segoe UI", 15);
+        using var diffFont = new Font("Segoe UI", 13);
         string title = "🐦 Flappy Bird";
         string sub = "SPACE veya fare ile başla";
+        string diffLabel = $"Zorluk: [1] Kolay  [2] Normal  [3] Zor  →  {Difficulty.GetLabel(CurrentDifficulty)}";
 
         SizeF tsz = g.MeasureString(title, titleFont);
         SizeF ssz = g.MeasureString(sub, subFont);
+        SizeF dsz = g.MeasureString(diffLabel, diffFont);
         float cx = ScreenWidth / 2f;
         float cy = ScreenHeight / 2f;
 
-        g.DrawString(title, titleFont, Brushes.White, cx - tsz.Width / 2f, cy - 60);
-        g.DrawString(sub, subFont, Brushes.Yellow, cx - ssz.Width / 2f, cy + 10);
+        g.DrawString(title, titleFont, Brushes.White, cx - tsz.Width / 2f, cy - 70);
+        g.DrawString(diffLabel, diffFont, Brushes.LightYellow, cx - dsz.Width / 2f, cy - 10);
+        g.DrawString(sub, subFont, Brushes.Yellow, cx - ssz.Width / 2f, cy + 20);
     }
 
     private void DrawGameOverScreen(Graphics g)
