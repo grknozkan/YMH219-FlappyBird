@@ -39,8 +39,9 @@ FlappyBird/
 - Yer çekimi ve yukarı itme fiziği
 - 3 boru, ekrandan çıkınca rastgele konuma geliyor
 - Çarpışma kontrolü (boru + zemin)
-- Skor ve en yüksek skor
+- Skor ve en yüksek skor (dosyaya kaydediliyor)
 - Hız artışı (her 5 puanda)
+- Zorluk seviyesi seçimi: `1` Kolay, `2` Normal, `3` Zor
 - Game Over ekranı ve yeniden başlatma
 
 ---
